@@ -12,30 +12,17 @@ class DetailScreen extends StatelessWidget {
         title: Text('Photo Details'),
         backgroundColor: Colors.lightBlue,
       ),
-      body: Center(
+      body:photo ==''
+          ? Center(child: CircularProgressIndicator())
+          : Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            Image.network(
+              photo['url'],
               width: 300,
               height: 300,
-              child: Image.network(
-                photo['url'],
-                fit: BoxFit.cover,
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                            : null,
-                      ),
-                    );
-                  }
-                },
-              ),
+              fit: BoxFit.cover,
             ),
             SizedBox(height: 20),
             Text(
