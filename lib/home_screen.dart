@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:photo_gallery_api/photo_details_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -46,9 +48,24 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: SizedBox(
               width: 80,
               height: 80,
-              child: Image.network(photo['thumbnailUrl'],width: 100,height: 100,fit: BoxFit.cover,),
+              child: Image.network(
+                photo['thumbnailUrl'],
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
             title: Text(photo['title']),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                    photo: photo,
+                  ),
+                ),
+              );
+            },
           );
         },
       ),
